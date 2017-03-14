@@ -10,14 +10,12 @@ var SearchForm = function() {
 	this.submitButton = element(by.css(".rm-btn-orange.search-submit-btn"));
 
 	// Access toggle/modal menus within page elements
-	this.locationMenu = element(by.css(".tt-dropdown-menu"));
 	this.programMenu = this.programField.element(by.css(".btn-group")).$$(".dropdown-menu");
 	this.datePicker = element(by.css(".ui-datepicker"));
 	this.guestsMenu = this.guestsField.element(by.css(".btn-group")).$$(".dropdown-menu");
 	this.roomsMenu = this.roomsField.element(by.css(".btn-group")).$$(".dropdown-menu");
 
 	// Access clickable elements within toggle/modal menus
-	this.locationChoice = this.locationMenu.all(by.css(".tt-dataset-placePredictions")).get(0);
 	this.programChoice = this.programMenu.all(by.tagName("li")).get(0);
 	this.dateChoice1 = this.datePicker.all(by.tagName("a")).get(0);
 	this.dateChoice2 = this.datePicker.all(by.tagName("a")).get(2);
@@ -38,48 +36,13 @@ describe('search form display', function() {
 
 	it('should display the search form', function() {
 
-		// expect(searchForm.locationField.isPresent()).toBe(true);
-		//expect(homePage.locationField.isPresent()).toBe(false);
-
 		expect(searchForm.locationField.isDisplayed()).toBe(true);
-		//expect(homePage.locationField.isDisplayed()).toBe(false);
-
-		// expect(searchForm.programField.isPresent()).toBe(true);
-		//expect(homePage.programField.isPresent()).toBe(false);
-
 		expect(searchForm.programField.isDisplayed()).toBe(true);
-		//expect(homePage.programField.isDisplayed()).toBe(false);
-
-		// expect(searchForm.dateField1.isPresent()).toBe(true);
-		//expect(homePage.dateField1.isPresent()).toBe(false);
-
 		expect(searchForm.dateField1.isDisplayed()).toBe(true);
-		//expect(homePage.dateField1.isDisplayed()).toBe(false);
-
-		// expect(searchForm.dateField2.isPresent()).toBe(true);
-		//expect(homePage.dateField2.isPresent()).toBe(false);
-
 		expect(searchForm.dateField2.isDisplayed()).toBe(true);
-		//expect(homePage.dateField2.isDisplayed()).toBe(false);
-
-		// expect(searchForm.guestsField.isPresent()).toBe(true);
-		//expect(homePage.guestsField.isPresent()).toBe(false);
-
 		expect(searchForm.guestsField.isDisplayed()).toBe(true);
-		//expect(homePage.guestsField.isDisplayed()).toBe(false);
-
-		// expect(searchForm.roomsField.isPresent()).toBe(true);
-		//expect(homePage.roomsField.isPresent()).toBe(false);
-
 		expect(searchForm.roomsField.isDisplayed()).toBe(true);
-		//expect(homePage.roomsField.isDisplayed()).toBe(false);
-
-		// expect(searchForm.submitButton.isPresent()).toBe(true);
-		//expect(homePage.submitButton.isPresent()).toBe(false);
-
 		expect(searchForm.submitButton.isDisplayed()).toBe(true);
-		//expect(homePage.submitButton.isDisplayed()).toBe(false);
-
 		expect(searchForm.submitButton.getText()).toBe("Search Hotels and Earn Miles");
 	});
 });
@@ -95,7 +58,9 @@ describe('search form functionality', function() {
 	});
 
 	it('should enter a location', function() {
+
 		searchForm.locationField.click();
+		browser.waitForAngular();
 		searchForm.locationField.sendKeys('Los Angeles, CA, United States');
 		browser.actions().sendKeys(protractor.Key.ENTER).perform()
 	})
@@ -134,7 +99,7 @@ describe('search form functionality', function() {
 		searchForm.roomsChoice.click();
 	});
 
-	// Ensure form submission works properly
+	// Ensure submit button works properly
 	it('should click the submit button', function() {
 
 		searchForm.submitButton.click();
